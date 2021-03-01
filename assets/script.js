@@ -28,23 +28,31 @@ var questions = [
     {
         questionText: "2. The math.floor() method:",
         answers: ["A. Returns the largest integer greater than or equal to a given number.", "B. Returns the largest integer less than or equal to a given number.", "B. Rounds to the nearest integer of a given number.", "D. None of the above."],
-        correctAnswer: "D. None of the above.",
+        correctAnswer: "B. Returns the largest integer less than or equal to a given number.",
     },
     {
         questionText: "3. An array can contain:",
-        answers: ["A. Booleans", "B. Numbers", "C. Undefined", "D. None of the above."],
-        correctAnswer: "D. None of the above.",
+        answers: ["A. Booleans", "B. Numbers", "C. Undefined", "D. All of the above."],
+        correctAnswer: "D. All of the above.",
     }
 ]
 
 var currentQuestionIndex = 0
+// get current question object from array
+questions.questionText.forEach(function(questionDisplay) {
+console.log(questionDisplay.text)
+});
+//  update title with current question
+// clear out any old question choices
+// loop over choices
+// create new button for each choice
+// attach click event listener to each choice
+// display on the page (edited) 
 
 // Populate page with currentQuestion
 function renderQuestion() {
   var currentQuestion = questions[currentQuestionIndex];
-//   populate all elements with the current properties of that question
-questionContainer.textContent = currentQuestion;
-choiceA.textContent = currentQuestion;
+console.log(currentQuestion)
 }
 // logic for Next button 
 function nextClick () {
