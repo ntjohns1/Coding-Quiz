@@ -1,6 +1,6 @@
 var card = document.querySelector(".card");
 var introEl = document.querySelector("#quiz-start")
-var questionContainer = document.querySelector(".card-header");
+var questionContainer = document.querySelector("#card-header");
 var choiceField = document.querySelector(".card-body");
 var startButton = document.querySelector("#start-button");
 var timerEl = document.querySelector("#timer");
@@ -21,7 +21,7 @@ function gameStart () {
 // store questions in an arrray of objects
 var questions = [
     {
-        questionText: "1. Which of the following is NOT a primitive data type:",
+        questionText: "1. Which of the following is NOT a primitive data type?",
         answers: ["A. Booleans", "B. Numbers", "C. Undefined", "D. None of the above."],
         correctAnswer: "D. None of the above.",
     },
@@ -36,23 +36,26 @@ var questions = [
         correctAnswer: "D. All of the above.",
     }
 ]
-
-var currentQuestionIndex = 0
 // get current question object from array
-questions.questionText.forEach(function(questionDisplay) {
-console.log(questionDisplay.text)
-});
-//  update title with current question
+var currentQuestionIndex = 0
+
+// Populate page with currentQuestion
+function renderQuestion() {
+    var currentQuestion = questions[currentQuestionIndex].questionText;
+  console.log(currentQuestion)
+  questionContainer.innerHTML = currentQuestion;
+  
+  choiceA.innerHTML = questions[currentQuestionIndex].answers[0];
+  choiceB.innerHTML = questions[currentQuestionIndex].answers[1];
+  choiceC.innerHTML = questions[currentQuestionIndex].answers[2];
+  choiceD.innerHTML = questions[currentQuestionIndex].answers[3];
+
 // clear out any old question choices
 // loop over choices
 // create new button for each choice
 // attach click event listener to each choice
 // display on the page (edited) 
 
-// Populate page with currentQuestion
-function renderQuestion() {
-  var currentQuestion = questions[currentQuestionIndex];
-console.log(currentQuestion)
 }
 // logic for Next button 
 function nextClick () {
