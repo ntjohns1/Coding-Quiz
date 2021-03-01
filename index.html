@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Coding Quiz</title>
+    <link rel="stylesheet" href="./assets/style.css" />
+</head>
+
+<body>
+    <div class="wrapper">
+        <header>
+            <h1>Coding Quiz</h1>
+        </header>
+
+        <!-- Start Quiz Screen -->
+        <div id="quiz-start">
+            <h2>Intro content goes here</h2>
+            <button id="start-button">Click to Start</button>
+        </div>
+
+        <!-- Question wrapper -->
+        <div class="card" hidden>
+            <!-- Quiz question goes here. -->
+            <div class="card-header">
+                <h3>I am a question?</h3>
+            </div>
+            <!-- Multiple choice answer goes here. -->
+            <div class="card-body">
+                <ul>
+                    <li><button id="choice-A" class="btn"></button></li>
+                    <li><button id="choice-B" class="btn"></button></li>
+                    <li><button id="choice-C" class="btn"></button></li>
+                    <li><button id="choice-D" class="btn"></button></li>
+                </ul>
+            </div>
+            <!-- Start button and timer goes here -->
+            <div class="card-footer">
+                <button id="next-button">Next Question</button>
+                <div id="timer">
+                    <h2>4</h2>
+                </div>
+            </div>
+        </div>
+
+        <!-- End Quiz Screen -->
+        <div id="quiz-end" hidden>
+            <h2>You finished the quiz</h2>
+        </div>
+    </div>
+    <script src="./assets/script.js"></script>
+</body>
+
+</html>
