@@ -3,7 +3,8 @@ var introEl = document.querySelector("#quiz-start")
 var questionContainer = document.querySelector("#card-header");
 var choiceField = document.querySelector(".card-body");
 var startButton = document.querySelector("#start-button");
-var timerEl = document.querySelector("#timer");
+var timerEl = document.getElementById("timer");
+var secondsLeft = 75;
 
 var choiceA = document.getElementById("choice-A");
 var choiceB = document.getElementById("choice-B");
@@ -16,7 +17,25 @@ function gameStart () {
   card.removeAttribute("hidden");
   introEl.setAttribute("hidden", true);
   renderQuestion();
+  var timerInterval = setInterval(function() {
+    secondsLeft--;
+    timerEl.innerHTML = secondsLeft;
+
+    if(secondsLeft === 0) {
+      // Stops execution of action at set interval
+      clearInterval(timerInterval);
+      // Calls function to create and append image
+    }
+
+  }, 1000);
 }
+
+
+function setTime() {
+  // Sets interval in variable
+
+}
+
  
 // store questions in an arrray of objects
 var questions = [
@@ -35,15 +54,15 @@ var questions = [
     answers: ["A. Booleans", "B. Numbers", "C. Undefined", "D. All of the above."],
     correctAnswer: "D. All of the above.",
   }
-]
+];
 
 // get current question object from array
-var currentQuestionIndex = 0
+var currentQuestionIndex = 0;
 
 // Populate page with currentQuestion
 function renderQuestion() {
     var currentQuestion = questions[currentQuestionIndex].questionText;
-  console.log(currentQuestion)
+  console.log(currentQuestion);
   questionContainer.innerHTML = currentQuestion;
 
   // create new button for each choice
@@ -57,8 +76,8 @@ function answerClick () {
   
 // conditionals for answer clicks 
 // advances to next question and choices
-  currentQuestionIndex++
-  renderQuestion()
+  currentQuestionIndex++;
+  renderQuestion();
 }
 
 choiceA.addEventListener("click", answerClick);
