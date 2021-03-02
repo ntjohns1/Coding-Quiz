@@ -7,4 +7,6 @@ WHEN I answer a question incorrectly. THEN time is subtracted from the clock.
 WHEN all questions are answered or the timer reaches 0, THEN the game is over.
 WHEN the game is over, THEN I can save my initials and my score.
 
+https://ntjohns1.github.io/Coding-Quiz/
+
 ![image](https://user-images.githubusercontent.com/77765270/109596669-b4d62f80-7ae4-11eb-8402-da46161c3dfd.png)
