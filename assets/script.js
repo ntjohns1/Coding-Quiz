@@ -73,33 +73,18 @@ function renderQuestion() {
 }
 // logic for answer button clicks 
 function answerClick () {
-  
-// conditionals for answer clicks 
-// advances to next question and choices
-  currentQuestionIndex++;
-  renderQuestion();
-}
-
-choiceA.addEventListener("click", answerClick);
-choiceB.addEventListener("click", answerClick);
-choiceC.addEventListener("click", answerClick);
-choiceD.addEventListener("click", answerClick);  
-startButton.addEventListener("click", gameStart);
-
-
-/*
-function questionClick() {
-  // check if user guessed wrong
-  if (this.value !== questions[currentQuestionIndex].answer) {
+  // conditionals for answer clicks 
+      // check if user guessed wrong
+  if (this.value !== questions[currentQuestionIndex].correctAnswer) {
     // penalize time
-    time -= 15;
+    secondsLeft -= 10;
 
-    if (time < 0) {
-      time = 0;
+    if (secondsLeft < 0) {
+      secondsLeft = 0;
     }
 
     // display new time on page
-    timerEl.textContent = time;
+    timerEl.textContent = secondsLeft;
  feedbackEl.textContent = "Wrong!";
   } else {
     
@@ -111,15 +96,16 @@ function questionClick() {
   setTimeout(function() {
     feedbackEl.setAttribute("class", "feedback hide");
   }, 1000);
-
-  // move to next question
+// advances to next question and choices
   currentQuestionIndex++;
-
-  // check if we've run out of questions
-  if (currentQuestionIndex === questions.length) {
-    quizEnd();
-  } else {
-    getQuestion();
-  }
+  
+  renderQuestion();
 }
-*/
+
+choiceA.addEventListener("click", answerClick);
+choiceB.addEventListener("click", answerClick);
+choiceC.addEventListener("click", answerClick);
+choiceD.addEventListener("click", answerClick);  
+startButton.addEventListener("click", gameStart);
+
+
