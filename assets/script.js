@@ -27,6 +27,9 @@ function gameStart () {
     if(secondsLeft === 0) {
       // Stops execution of action at set interval
       clearInterval(timerInterval);
+    if (secondsLeft < 0) {
+    secondsLeft = 0;
+      }
     }
   }, 1000);
 }
@@ -69,27 +72,23 @@ function renderQuestion() {
 function answerClick () {
   // conditionals for answer clicks 
       // check if user guessed wrong
-  if (this.value !== questions[currentQuestionIndex].correctAnswer) {
-    // penalize time
-    secondsLeft -= 10;
-
-    if (secondsLeft < 0) {
-      secondsLeft = 0;
-    }
+  if (this.value === questions[currentQuestionIndex].correctAnswer) {
+      
 
     // display new time on page
     timerEl.textContent = secondsLeft;
-    feedbackEl.textContent = "Wrong!";
+    feedbackEl.textContent = "correct";
   } else {
-    
-    feedbackEl.textContent = "Correct!";
+    feedbackEl.textContent = "Wrong!"
+     // penalize time
+     secondsLeft -= 10;
   }
 
   // flash right/wrong feedback on page for half a second
-  feedbackEl.setAttribute("class", "feedback");
+  /*feedbackEl.setAttribute("class", "feedback");
   setTimeout(function() {
     feedbackEl.setAttribute("class", "feedback hide");
-  }, 1000);
+  }, 1000);*/
 // advances to next question and choices
   currentQuestionIndex++;
   
