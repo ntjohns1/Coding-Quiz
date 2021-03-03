@@ -4,6 +4,7 @@ var questionContainer = document.querySelector("#card-header");
 var choiceField = document.querySelector(".card-body");
 var startButton = document.querySelector("#start-button");
 var timerEl = document.getElementById("timer");
+var feedbackEl = document.getElementById("feedbackEl");
 var secondsLeft = 75;
 
 var choiceA = document.getElementById("choice-A");
@@ -14,9 +15,11 @@ var choiceD = document.getElementById("choice-D");
 var quizEnd = document.getElementById("quiz-end");
 
 function gameStart () {
+// Hide intro card and show first question
   card.removeAttribute("hidden");
   introEl.setAttribute("hidden", true);
   renderQuestion();
+// Set timer
   var timerInterval = setInterval(function() {
     secondsLeft--;
     timerEl.innerHTML = secondsLeft;
@@ -24,19 +27,10 @@ function gameStart () {
     if(secondsLeft === 0) {
       // Stops execution of action at set interval
       clearInterval(timerInterval);
-      // Calls function to create and append image
     }
-
   }, 1000);
 }
 
-
-function setTime() {
-  // Sets interval in variable
-
-}
-
- 
 // store questions in an arrray of objects
 var questions = [
   {
@@ -85,7 +79,7 @@ function answerClick () {
 
     // display new time on page
     timerEl.textContent = secondsLeft;
- feedbackEl.textContent = "Wrong!";
+    feedbackEl.textContent = "Wrong!";
   } else {
     
     feedbackEl.textContent = "Correct!";
