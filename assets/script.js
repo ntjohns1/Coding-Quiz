@@ -1,6 +1,8 @@
 /* ToDO:
 -quizEnd function
 -grab timer value as final score
+-Form field to enter initials
+-grab initials and score from form 
 -store players initials and score in local storage
 -time-permitting, fix the feedback element to display temporarily
 */
@@ -100,8 +102,9 @@ function answerClick (event) {
 // advances to next question and choices
   currentQuestionIndex++;
   // check if we've run out of questions
-  if (currentQuestionIndex === questions.length) {
+  if (currentQuestionIndex === questions.length) {``
     quizEndEl.removeAttribute("hidden");
+    card.setAttribute("hidden", true);
   } else {
     renderQuestion();
   }
