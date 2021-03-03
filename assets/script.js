@@ -1,10 +1,12 @@
 /* ToDO:
--quizEnd function
+-Quiz ends but... feedback doesn't appear for last question. Figure out how to create or show a feedbackEl and only display for half a second. Also you need code for the following...
 -grab timer value as final score
--Form field to enter initials
+-display final timer value at quizEnd (will we do this with the event.target method like line 84?)
+-Form field to enter initials at quizEnd
 -grab initials and score from form 
 -store players initials and score in local storage
--time-permitting, fix the feedback element to display temporarily
+-button to start over or clear high scores at quizEnd.
+-time-permitting, fix the feedback element to display temporarily.
 */
 var card = document.querySelector(".card");
 var introEl = document.querySelector("#quiz-start")
@@ -15,12 +17,14 @@ var timerEl = document.getElementById("timer");
 var feedbackEl = document.getElementById("feedbackEl");
 var quizEndEl = document.getElementById("quiz-end")
 var secondsLeft = 75;
-
 var choiceA = document.getElementById("choice-A");
 var choiceB = document.getElementById("choice-B");
 var choiceC = document.getElementById("choice-C");
 var choiceD = document.getElementById("choice-D");
-
+var saveBtn = document.getElementById("save")
+var scoreEL = document.getElementById("score")
+var formEl = document.getElementById("initials")
+var highScoreBtn = document.getElementById("high-scores")
 var quizEnd = document.getElementById("quiz-end");
 
 function gameStart() {
@@ -70,19 +74,18 @@ function renderQuestion() {
     var currentQuestion = questions[currentQuestionIndex].questionText;
   console.log(currentQuestion);
   questionContainer.innerHTML = currentQuestion;
-
   // create new button for each choice
   choiceA.innerHTML = questions[currentQuestionIndex].answers[0];
   choiceB.innerHTML = questions[currentQuestionIndex].answers[1];
   choiceC.innerHTML = questions[currentQuestionIndex].answers[2];
   choiceD.innerHTML = questions[currentQuestionIndex].answers[3];
 }
+
 // logic for answer button clicks 
 function answerClick (event) {
     var guess = event.target.innerHTML;
     console.log(event.target.innerHTML);
-  // conditionals for answer clicks 
-  // check if user guessed wrong
+  // conditionals for answer clicks, check if user guessed wrong
   if (guess === questions[currentQuestionIndex].correctAnswer) {
     timerEl.textContent = secondsLeft;
     feedbackEl.textContent = "Correct!";
@@ -90,28 +93,44 @@ function answerClick (event) {
     feedbackEl.textContent = "Wrong!"
      // penalize time
      secondsLeft -= 10;
-  
   }
+
   // flash right/wrong feedback on page for half a second
-  /*
-  feedbackEl.setAttribute("class", "feedback");
   setTimeout(function() {
-    feedbackEl.setAttribute("class", "feedback hide");
+    feedbackEl.setAttribute("hidden", true);
+    feedbackEl.removeAttribute("hidden");
   }, 500);
-  */
+
 // advances to next question and choices
   currentQuestionIndex++;
   // check if we've run out of questions
-  if (currentQuestionIndex === questions.length) {``
+  if (currentQuestionIndex === questions.length) {
     quizEndEl.removeAttribute("hidden");
     card.setAttribute("hidden", true);
   } else {
     renderQuestion();
   }
 }
+// ToDofunction to grab value from timerEl goes here
+// logic to send score and initials to local storage goes here
+var scoreCard = {
+  initials: formEl.value,
+  score: score.value,
+};
+
+localStorage.setItem("scoreCard", JSON.stringify(scoreCard));
+renderMessage();
 
 
-
+function renderMessage() {
+  var lastScore = JSON.parse(localStorage.getItem("scoreCard"));
+  if (lastScore !== null) {
+    // print local storage to page
+    // Todo create elements that display scores
+    myElement.textContent = scoreCard.score
+  }
+}
+// ToDo event listener for save button + high score
 choiceA.addEventListener("click", answerClick);
 choiceB.addEventListener("click", answerClick);
 choiceC.addEventListener("click", answerClick);

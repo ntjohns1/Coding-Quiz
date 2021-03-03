@@ -39,7 +39,7 @@
             <!-- timer goes here -->
             <div class="card-footer">
                 <div>
-                    <h2 id="feedbackEl"></h2>
+                    <h2 id="feedbackEl" hidden></h2>
                     <h2 id="timer"></h2>
                 </div>
             </div>
@@ -48,6 +48,13 @@
         <!-- End Quiz Screen -->
         <div id="quiz-end" hidden>
             <h2>You finished the quiz</h2>
+            <h3 id="score"></h3>
+            <form>
+            <label for="initials">Enter Your Initials</label>
+            <textarea id="initials" name="Initials"></textarea>
+            </form>
+            <button id="save">SAVE</button>
+            <button id="high-scores">High Scores</button>
         </div>
     </div>
     <script src="./assets/script.js"></script>
