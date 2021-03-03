@@ -1,3 +1,9 @@
+/* ToDO:
+-quizEnd function
+-grab timer value as final score
+-store players initials and score in local storage
+-time-permitting, fix the feedback element to display temporarily
+*/
 var card = document.querySelector(".card");
 var introEl = document.querySelector("#quiz-start")
 var questionContainer = document.querySelector("#card-header");
@@ -5,6 +11,7 @@ var choiceField = document.querySelector(".card-body");
 var startButton = document.querySelector("#start-button");
 var timerEl = document.getElementById("timer");
 var feedbackEl = document.getElementById("feedbackEl");
+var quizEndEl = document.getElementById("quiz-end")
 var secondsLeft = 75;
 
 var choiceA = document.getElementById("choice-A");
@@ -14,7 +21,7 @@ var choiceD = document.getElementById("choice-D");
 
 var quizEnd = document.getElementById("quiz-end");
 
-function gameStart () {
+function gameStart() {
 // Hide intro card and show first question
   card.removeAttribute("hidden");
   introEl.setAttribute("hidden", true);
@@ -73,29 +80,34 @@ function answerClick (event) {
     var guess = event.target.innerHTML;
     console.log(event.target.innerHTML);
   // conditionals for answer clicks 
-      // check if user guessed wrong
+  // check if user guessed wrong
   if (guess === questions[currentQuestionIndex].correctAnswer) {
-    // display new time on page
     timerEl.textContent = secondsLeft;
     feedbackEl.textContent = "Correct!";
   } else {
-    
-    
     feedbackEl.textContent = "Wrong!"
      // penalize time
      secondsLeft -= 10;
+  
   }
-
   // flash right/wrong feedback on page for half a second
-  /*feedbackEl.setAttribute("class", "feedback");
+  /*
+  feedbackEl.setAttribute("class", "feedback");
   setTimeout(function() {
     feedbackEl.setAttribute("class", "feedback hide");
-  }, 1000);*/
+  }, 500);
+  */
 // advances to next question and choices
   currentQuestionIndex++;
-  
-  renderQuestion();
+  // check if we've run out of questions
+  if (currentQuestionIndex === questions.length) {
+    quizEndEl.removeAttribute("hidden");
+  } else {
+    renderQuestion();
+  }
 }
+
+
 
 choiceA.addEventListener("click", answerClick);
 choiceB.addEventListener("click", answerClick);
