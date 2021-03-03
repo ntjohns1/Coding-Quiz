@@ -69,16 +69,18 @@ function renderQuestion() {
   choiceD.innerHTML = questions[currentQuestionIndex].answers[3];
 }
 // logic for answer button clicks 
-function answerClick () {
+function answerClick (event) {
+    var guess = event.target.innerHTML;
+    console.log(event.target.innerHTML);
   // conditionals for answer clicks 
       // check if user guessed wrong
-  if (this.value === questions[currentQuestionIndex].correctAnswer) {
-      
-
+  if (guess === questions[currentQuestionIndex].correctAnswer) {
     // display new time on page
     timerEl.textContent = secondsLeft;
-    feedbackEl.textContent = "correct";
+    feedbackEl.textContent = "Correct!";
   } else {
+    
+    
     feedbackEl.textContent = "Wrong!"
      // penalize time
      secondsLeft -= 10;
