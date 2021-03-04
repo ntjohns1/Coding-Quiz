@@ -1,9 +1,8 @@
 /* ToDO:
 -Quiz ends but... feedback doesn't appear for last question. Figure out how to create or show a feedbackEl and only display for half a second. Also you need code for the following...
--grab timer value as final score
--display final timer value at quizEnd (will we do this with the event.target method like line 84?)
 -grab initials and score from form 
 -store players initials and score in local storage
+-there is a problem where it is reading event listeners for save and high scores buttons as null
 -button to start over or clear high scores at quizEnd.
 */
 var card = document.querySelector(".card");
@@ -20,11 +19,11 @@ var choiceA = document.getElementById("choice-A");
 var choiceB = document.getElementById("choice-B");
 var choiceC = document.getElementById("choice-C");
 var choiceD = document.getElementById("choice-D");
-var saveBtn = document.getElementById("save")
 var scoreEL = document.getElementById("score")
 var formEl = document.getElementById("initials")
-var highScoreBtn = document.getElementById("high-scores")
-
+var saveBtn = document.getElementById("save-btn")
+var highScoreBtn = document.getElementById("high-scores-btn")
+var highScoresList = document.getElementById("score-list")
 
 function gameStart() {
 // Hide intro card and show first question
@@ -112,36 +111,42 @@ function answerClick (event) {
     card.setAttribute("hidden", true);
 // grab value from timerEl    
     var score = timerEl.innerHTML;
-    console.log(score);
     scoreDisplay.innerHTML = "Your Score: " + score;
   } else {
     renderQuestion();
   }
-}
-
-
-// logic to send score and initials to local storage goes here
-/*var scoreCard = {
-  initials: formEl.value,
-  score: score.value,
+};
+// these are commented out because event listeners are being read as null
+/*
+function save() {
+  save.preventDefault();
+  var scoreCard = {
+    initials: formEl.value,
+    score: score
+  };
+  localStorage.setItem("scoreCard", JSON.stringify(scoreCard));
 };
 
-localStorage.setItem("scoreCard", JSON.stringify(scoreCard));
-renderMessage();
 
 
 function renderMessage() {
   var lastScore = JSON.parse(localStorage.getItem("scoreCard"));
   if (lastScore !== null) {
-    // print local storage to page
-    // Todo create elements that display scores
-    myElement.textContent = scoreCard.score
+  var listScores = document.createElement("li")
+  listScores.textContent = lastScore
+  document.body.appendChild(listScores)
   }
 }
 */
-// ToDo event listener for save button + high score
+
 choiceA.addEventListener("click", answerClick);
 choiceB.addEventListener("click", answerClick);
 choiceC.addEventListener("click", answerClick);
 choiceD.addEventListener("click", answerClick);  
 startButton.addEventListener("click", gameStart);
+
+// Figure out why these event listeners get error message "Uncaught TypeError: Cannot read property 'addEventListener' of null"
+
+// highScoreBtn.addEventListener("click", renderMessage);
+// saveBtn.addEventListener("click", save);
+
