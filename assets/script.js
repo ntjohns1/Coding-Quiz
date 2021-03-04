@@ -2,11 +2,9 @@
 -Quiz ends but... feedback doesn't appear for last question. Figure out how to create or show a feedbackEl and only display for half a second. Also you need code for the following...
 -grab timer value as final score
 -display final timer value at quizEnd (will we do this with the event.target method like line 84?)
--Form field to enter initials at quizEnd
 -grab initials and score from form 
 -store players initials and score in local storage
 -button to start over or clear high scores at quizEnd.
--time-permitting, fix the feedback element to display temporarily.
 */
 var card = document.querySelector(".card");
 var introEl = document.querySelector("#quiz-start")
@@ -15,7 +13,8 @@ var choiceField = document.querySelector(".card-body");
 var startButton = document.querySelector("#start-button");
 var timerEl = document.getElementById("timer");
 var feedbackEl = document.getElementById("feedbackEl");
-var quizEndEl = document.getElementById("quiz-end")
+var quizEnd = document.getElementById("quiz-end")
+var scoreDisplay = document.getElementById("score")
 var secondsLeft = 75;
 var choiceA = document.getElementById("choice-A");
 var choiceB = document.getElementById("choice-B");
@@ -25,7 +24,7 @@ var saveBtn = document.getElementById("save")
 var scoreEL = document.getElementById("score")
 var formEl = document.getElementById("initials")
 var highScoreBtn = document.getElementById("high-scores")
-var quizEnd = document.getElementById("quiz-end");
+
 
 function gameStart() {
 // Hide intro card and show first question
@@ -88,32 +87,41 @@ function answerClick (event) {
   // conditionals for answer clicks, check if user guessed wrong
   if (guess === questions[currentQuestionIndex].correctAnswer) {
     timerEl.textContent = secondsLeft;
+    // flash right/wrong feedback on page for half a second
     feedbackEl.textContent = "Correct!";
+    setTimeout(function() {
+      feedbackEl.textContent = ""
+    }, 2000);
   } else {
     feedbackEl.textContent = "Wrong!"
+    setTimeout(function() {
+      feedbackEl.textContent = ""
+    }, 2000);
      // penalize time
      secondsLeft -= 10;
   }
 
-  // flash right/wrong feedback on page for half a second
-  setTimeout(function() {
-    feedbackEl.setAttribute("hidden", true);
-    feedbackEl.removeAttribute("hidden");
-  }, 500);
+  
 
 // advances to next question and choices
   currentQuestionIndex++;
-  // check if we've run out of questions
+// check if we've run out of questions
   if (currentQuestionIndex === questions.length) {
-    quizEndEl.removeAttribute("hidden");
+
+    quizEnd.removeAttribute("hidden");
     card.setAttribute("hidden", true);
+// grab value from timerEl    
+    var score = timerEl.innerHTML;
+    console.log(score);
+    scoreDisplay.innerHTML = "Your Score: " + score;
   } else {
     renderQuestion();
   }
 }
-// ToDofunction to grab value from timerEl goes here
+
+
 // logic to send score and initials to local storage goes here
-var scoreCard = {
+/*var scoreCard = {
   initials: formEl.value,
   score: score.value,
 };
@@ -130,11 +138,10 @@ function renderMessage() {
     myElement.textContent = scoreCard.score
   }
 }
+*/
 // ToDo event listener for save button + high score
 choiceA.addEventListener("click", answerClick);
 choiceB.addEventListener("click", answerClick);
 choiceC.addEventListener("click", answerClick);
 choiceD.addEventListener("click", answerClick);  
 startButton.addEventListener("click", gameStart);
-
-
