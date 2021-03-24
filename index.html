@@ -14,6 +14,16 @@
         <header>
             <h1>Coding Quiz</h1>
         </header>
+        <!-- timer goes here -->
+        <div class="card-footer">
+            <div>
+                <h2 class="feedbackEl"></h2>
+            </div>
+            <div>
+                <h2 id="timer"></h2>
+            </div>
+        </div>
+
 
         <!-- Start Quiz Screen -->
         <div id="quiz-start">
@@ -36,22 +46,14 @@
                     <li><button id="choice-D" class="btn"></button></li>
                 </ul>
             </div>
-            <!-- timer goes here -->
-            <div class="card-footer">
-                <div>
-                    <h2 id="feedbackEl" hidden></h2>
-                    <h2 id="timer"></h2>
-                </div>
-            </div>
         </div>
-
         <!-- End Quiz Screen -->
         <div id="quiz-end" hidden>
             <h2>You finished the quiz</h2>
-            <h3 id="score"></h3>
+            <h3>Your Score: <span id="score"></span></h3>
             <form>
-            <label for="initials">Enter Your Initials</label>
-            <textarea id="initials" name="Initials"></textarea>
+                <label for="initials">Enter Your Initials</label>
+                <textarea id="initials" name="Initials"></textarea>
             </form>
             <button id="save-btn">SAVE</button>
             <button id="high-scores-btn">High Scores</button>

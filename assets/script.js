@@ -11,7 +11,7 @@ var questionContainer = document.querySelector("#card-header");
 var choiceField = document.querySelector(".card-body");
 var startButton = document.querySelector("#start-button");
 var timerEl = document.getElementById("timer");
-var feedbackEl = document.getElementById("feedbackEl");
+var feedbackEl = document.querySelector(".feedbackEl");
 var quizEnd = document.getElementById("quiz-end")
 var scoreDisplay = document.getElementById("score")
 var secondsLeft = 75;
@@ -24,6 +24,15 @@ var formEl = document.getElementById("initials")
 var saveBtn = document.getElementById("save-btn")
 var highScoreBtn = document.getElementById("high-scores-btn")
 var highScoresList = document.getElementById("score-list")
+var scoreObject = new Array();
+
+function init() {
+  var lastScore = JSON.parse(localStorage.getItem("scoreCard"));
+  if (lastScore !== null) {
+  scoreObject = lastScore;
+  console.log(scoreObject);
+  }
+}
 
 function gameStart() {
 // Hide intro card and show first question
@@ -35,9 +44,10 @@ function gameStart() {
     secondsLeft--;
     timerEl.innerHTML = secondsLeft;
 
-    if(secondsLeft === 0) {
+    if(timerEl.innerHTML === 0) {
       // Stops execution of action at set interval
       clearInterval(timerInterval);
+      gameOver();
     if (secondsLeft < 0) {
     secondsLeft = 0;
       }
@@ -87,12 +97,12 @@ function answerClick (event) {
   if (guess === questions[currentQuestionIndex].correctAnswer) {
     timerEl.textContent = secondsLeft;
     // flash right/wrong feedback on page for half a second
-    feedbackEl.textContent = "Correct!";
+    feedbackEl.textContent = "Last Answer: Correct!";
     setTimeout(function() {
       feedbackEl.textContent = ""
     }, 2000);
   } else {
-    feedbackEl.textContent = "Wrong!"
+    feedbackEl.textContent = "Last Answer: Wrong!"
     setTimeout(function() {
       feedbackEl.textContent = ""
     }, 2000);
@@ -100,53 +110,63 @@ function answerClick (event) {
      secondsLeft -= 10;
   }
 
-  
+  function gameOver() {
+    quizEnd.removeAttribute("hidden");
+    card.setAttribute("hidden", true);
+    timerEl.setAttribute("hidden", true);
+  }
 
 // advances to next question and choices
   currentQuestionIndex++;
 // check if we've run out of questions
   if (currentQuestionIndex === questions.length) {
-
-    quizEnd.removeAttribute("hidden");
-    card.setAttribute("hidden", true);
-// grab value from timerEl    
+  gameOver();
+// grab value from timerEl  
     var score = timerEl.innerHTML;
-    scoreDisplay.innerHTML = "Your Score: " + score;
+    scoreDisplay.innerHTML = score;
   } else {
     renderQuestion();
   }
 };
 // these are commented out because event listeners are being read as null
-/*
-function save() {
+
+saveBtn.addEventListener("click", function(save) {
   save.preventDefault();
   var scoreCard = {
     initials: formEl.value,
-    score: score
+    score: scoreEL.innerHTML
   };
-  localStorage.setItem("scoreCard", JSON.stringify(scoreCard));
-};
+  addScore(scoreCard); 
+  formEl.value = "";
+});
 
-
-
-function renderMessage() {
-  var lastScore = JSON.parse(localStorage.getItem("scoreCard"));
-  if (lastScore !== null) {
-  var listScores = document.createElement("li")
-  listScores.textContent = lastScore
-  document.body.appendChild(listScores)
-  }
+function addScore(score) {
+  scoreObject.push(score);
+  localStorage.setItem("scoreCard", JSON.stringify(scoreObject));
 }
-*/
+
+
+
+highScoreBtn.addEventListener("click", function(event) {
+  event.preventDefault();
+  formEl.textContent = '';
+  for (let i = 0; i < scoreObject.length; i++) {
+    const scores = scoreObject[i];
+    var listEl = document.createElement('li');
+    listEl.textContent = "Initials: " + scores.initials + " --- Score: " + scores.score;
+    highScoresList.prepend(listEl);
+  } 
+});
 
 choiceA.addEventListener("click", answerClick);
 choiceB.addEventListener("click", answerClick);
 choiceC.addEventListener("click", answerClick);
 choiceD.addEventListener("click", answerClick);  
 startButton.addEventListener("click", gameStart);
+init();
 
 // Figure out why these event listeners get error message "Uncaught TypeError: Cannot read property 'addEventListener' of null"
 
 // highScoreBtn.addEventListener("click", renderMessage);
-// saveBtn.addEventListener("click", save);
+
 
